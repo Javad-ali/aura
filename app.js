@@ -40,7 +40,7 @@ app.use("/", (req, res, next) => {
 });
 app.use('/',auth)
 app.use('/admin',adminRouter);
-app.use('/users',usersRouter);
+app.use('/',usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

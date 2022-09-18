@@ -16,8 +16,10 @@ const checkLog = (req, res, next) => {
             jwt.verify(token, process.env.JWT_SECRT_KEY, (err, client) => {
                 if (err) {
                     next()
-                } else {
+                } else if(req?.user?.user?._id){
                     res.redirect(`/users/`);
+                }else{
+                  next()
                 }
             })
         } else {

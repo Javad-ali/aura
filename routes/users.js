@@ -3,6 +3,7 @@ var router = express.Router();
 const userModel =require('../models/userModel');
 const bcrypt =require('bcrypt');
 const jwt = require('jsonwebtoken')
+
 const { Router } = require('express');
 const productModel =require('../models/productModel');
 const categoryModel = require('../models/categoryModel');
@@ -10,19 +11,45 @@ const async = require('hbs/lib/async');
 const cartModel = require('../models/cartModel');
 const addressModel = require('../models/addressModel')
 const { findOne } = require('../models/userModel');
-const verifytokenAndAuthorization = require('../controller/verifyToken');
+const verifytokenAndAuthorization = require('../controller/verifyToken')
 
 
 
 
 
+const checkLog = (req, res, next) => {
+  const authHeader = req.headers.cookie;
+  if (authHeader) {
+      const token = authHeader.split('=')[1];
+      if (token) {
+          jwt.verify(token, process.env.JWT_SECRT_KEY, (err, client) => {
+              if (err) {
+                  next()
+              } else {
+                  res.redirect(`/users`);
+              }
+          })
+      } else {
+          next()
+      }
+  } else {
+      next()
+  }
+
+}
+
+/* GET users listing. */
+router.get('/',checkLog,async function(req, res, next) {
+  const products=await  productModel.find().lean()
+  res.render('Users/landingPage',{products});
+});
 
 //========================================== //
 
 // ============ LOGOUT =====================//
 
 
-router.route('/logout').get(verifytokenAndAuthorization,(req,res)=>{
+router.route('/logout').get((req,res)=>{
   res.cookie('jwt', 'loggedout', {
     expires: new Date(Date.now() + 10 * 1000),
     httpOnly: true
@@ -37,8 +64,8 @@ router.route('/logout').get(verifytokenAndAuthorization,(req,res)=>{
 
 
 // ============= Home page ================== ///////////
-router.route('/').get(verifytokenAndAuthorization,async(req,res)=>{
-  console.log(req.user.user._id);
+router.route('/users').get(verifytokenAndAuthorization,async(req,res)=>{
+  // console.log(req.user.user._id);
   const user =await userModel.findById(req.user.user._id,{password:0}).lean()
   
   const products=await productModel.find().populate('category').lean()
@@ -50,14 +77,14 @@ router.route('/').get(verifytokenAndAuthorization,async(req,res)=>{
 
 // ======= profile =========//
 
-router.route('/address').get(verifytokenAndAuthorization,verifytokenAndAuthorization,async(req,res)=>{
+router.route('/users/address').get(verifytokenAndAuthorization,async(req,res)=>{
   const address = await addressModel.findOne({userId:req.user.user._id}).lean()
   res.render('Users/profile/address',{layout:'adminlayout',address})
 })
 
 //  ======== address ============///
 
-router.route('/address').post(verifytokenAndAuthorization,async(req,res)=>{
+router.route('/users/address').post( verifytokenAndAuthorization,async(req,res)=>{
   const oldAddress =await addressModel.findOne({userId:req.user.user._id})
   const addresses = {
     address:req.body.address,
@@ -68,24 +95,24 @@ router.route('/address').post(verifytokenAndAuthorization,async(req,res)=>{
   }
   if(oldAddress){
     await addressModel.findByIdAndUpdate(oldAddress._id,{$push:{addresses}})
-    res.redirect(`/checkOut`);
+    res.redirect(`/users/checkOut`);
 
   }else{
     const newAddress = await new addressModel({userId:req.user.user._id,addresses})
     newAddress.save() 
    
-    res.redirect(`/checkOut`);
+    res.redirect(`/users/checkOut`);
 
   }
 })
-router.route('/address/:addId').get(verifytokenAndAuthorization,async(req,res)=>{
+router.route('/users/address/:addId').get( verifytokenAndAuthorization,async(req,res)=>{
   const ALLaddress = await addressModel.findOne({userId:req.user.user._id})
   const address = ALLaddress.addresses.filter(e=>e._id == req.params.addId)
   res.json({address})
 
-}).post(verifytokenAndAuthorization,async(req,res)=>{
+}).post(async(req,res)=>{
 const address =await addressModel.updateOne({'addresses._id':req.params.addId},{$set:{'addresses.$':req.body}})
-res.redirect(`/address`)
+res.redirect(`/users/address`)
 }).delete(async(req,res)=>{
   const address = await addressModel.findOneAndUpdate({userId:req.user.user._id},{$pull:{addresses:{_id:req.params.addId}}})
   console.log(address)
@@ -97,21 +124,21 @@ res.redirect(`/address`)
 
 
 // ======== product ================//
-router.route('/products/:proid').get(verifytokenAndAuthorization,async(req,res)=>{
+router.route('/user/products/:proid').get( verifytokenAndAuthorization,async(req,res)=>{
   const product= await productModel.findById(req.params.proid);
   res.json({product})
 })
 
 //==================== CART ======================//
 
-router.route('/cart')
-.get(verifytokenAndAuthorization, async(req,res)=>{
+router.route('/users/cart')
+.get( verifytokenAndAuthorization,async(req,res)=>{
   const cart= await cartModel.findOne({userId:req.user.user._id}).populate({path:'products',populate:{path:'product'}}).lean()
 const user= await userModel.findById(req.user.user._id).lean()
   res.render('Users/cart',{cart,user})
 })
 
-  .post(verifytokenAndAuthorization,  async(req,res)=>{
+  .post( verifytokenAndAuthorization, async(req,res)=>{
     console.log(req.body)
     const discountPrice = await productModel.findById(req.body.prodId,{product:{discountPrice:1}})
     const totalPrice= (discountPrice.product.discountPrice*1)*req.body.qty
@@ -152,7 +179,7 @@ const finalPrice= oldCart.products.reduce((acc,crr)=>{
   })
 // =============== check Out ===========//
 
-router.route('/checkout').get(verifytokenAndAuthorization,async(req,res)=>{
+router.route('/users/checkout').get(verifytokenAndAuthorization,async(req,res)=>{
   const cart= await cartModel.findOne({userId:req.user.user._id}).populate({path:'products',populate:{path:'product'}}).lean()
   const user= await userModel.findById(req.user.user._id).lean()
     res.render('Users/checkOut',{cart,user})

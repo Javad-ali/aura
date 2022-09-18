@@ -13,7 +13,6 @@ const verifytoken = (req, res, next) => {
                     console.log(err)
                     res.redirect('/login');
                 } else {
-
                     req.user = client;
                     next();
                 }
@@ -29,25 +28,11 @@ const verifytoken = (req, res, next) => {
 
 const verifytokenAndAuthorization = (req, res, next) => {
     verifytoken(req, res, async () => {
-        console.log(req.user)
-        if (req.user.user) {
-            const user = await userModel.findById(req.user.user._id)
-            if (user) {
-                next();
-            }
-            else {
-                res.status(500).json({
-                    message: 'access denied'
-                })
-            }
-        } else if (req.user.admin) {
-            next()
-        } else {
-            res.status(500).json({
-                message: 'access denied'
-            })
-
-        }
+       if(req?.user?.user?._id){
+        next()
+       }else{
+        redirect('/login')
+       }
     })
 }
 
