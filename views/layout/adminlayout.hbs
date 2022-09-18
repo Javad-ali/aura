@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="/stylesheet" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" href="/vendor/bootstrap/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <title>Dashboard</title>
+</head>
+
+<body>
+    <section class="header">
+        <div class="logo">
+            <i class="ri-menu-line icon icon-0 menu"></i>
+            {{!-- <h2>AURA<span>HOME</span></h2> --}}
+            <a href="#" class="logo">
+                <img src="/images/icons/logo-01.png" class="img-fluid w-10" style="    top: 2%;
+                                                                                                left: 6%;
+                                                                                                width: 8%;
+                                                                                                /* height: 100%; */
+                                                                                                object-fit: cover;"
+                    alt="IMG-LOGO">
+            </a>
+        </div>
+        <div class="search--notification--profile">
+            <div class="search">
+                <input type="text" placeholder="Search Scdule..">
+                <button><i class="ri-search-2-line"></i></button>
+            </div>
+            <div class="notification--profile">
+                <div class="picon lock">
+                    <i class="ri-lock-line"></i>
+                </div>
+                <div class="picon bell">
+                    <i class="ri-notification-2-line"></i>
+                </div>
+                <div class="picon chat">
+                    <i class="ri-wechat-2-line"></i>
+                </div>
+                <div class="picon profile">
+                    <img src="/images/profile.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="main mr-2">
+        <div class="sidebar ">
+            <ul class="sidebar--items">
+                <li>
+                    <a href="/admin/home" id="active--link" class="Dashboard">
+                        <span class="icon icon-1"><i class="ri-layout-grid-line"></i></span>
+                        <span class="sidebar--item">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="users" href="/admin/users">
+                        <span class="icon icon-2 "><i class="ri-calendar-2-line"></i></span>
+                        <span class="sidebar--item">Users</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/products">
+                        <span class="icon icon-3"><i class="ri-user-2-line"></i></span>
+                        <span class="sidebar--item" style="white-space: nowrap;">Products</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/categorys">
+                        <span class="icon icon-5"><i class="ri-user-2-line"></i></span>
+                        <span class="sidebar--item" style="white-space: nowrap;">Category</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon icon-4"><i class="ri-user-line"></i></span>
+                        <span class="sidebar--item">Orders</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="sidebar--bottom-items">
+                <li>
+                    <a href="#">
+                        <span class="icon icon-7"><i class="ri-settings-3-line"></i></span>
+                        <span class="sidebar--item">Settings</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/logout">
+                        <span class="icon icon-8"><i class="ri-logout-box-r-line"></i></span>
+                        <span class="sidebar--item">Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        {{{body}}}
+    </section>
+    <link rel="stylesheet" href="/css/admin.css">
+
+
+</body>
+
+
+</html>

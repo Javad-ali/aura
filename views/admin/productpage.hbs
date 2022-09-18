@@ -1,0 +1,196 @@
+<div class="main--content">
+    <div class="recent--patients table-content">
+        <div class="title">
+            <h2 class="section--title">All Products</h2>
+            <button class="add-product btn btn-success  "><i class="ri-add-line "></i>Add Product</button>
+        </div>
+        <div class="table">
+            <table id="product-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Itemt Name</th>
+                        <th>Brand Name</th>
+                        <th>Stock</th>
+                        <th>Settings</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each products}}
+                    <tr>
+                        <td><img src="/images/items/{{this.coverImage}}" class="img--box"></td>
+
+                        <td><a href="products/{{this._id}}">{{ this.product.itemName}}</a></td>
+
+                        <td>{{this.product.brandName}}</td>
+                        <td>{{this.stock}}</td>
+
+                        <td><span> <a href="products/{{this._id}}">
+                                    <i class="ri-edit-line edit"></i>
+                                </a><button class="delete-product" productid="{{this._id}}"><i
+                                        class="ri-delete-bin-line delete"></i></button></span></td>
+
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+        <div class="container tm-mt-big tm-mb-big addproductpage" style="display:none;">
+            <div class="row">
+                <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+                    <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+                        <div class="row">
+                            <div class="col-12">
+                                <h2 class="tm-block-title d-inline-block">Add Product</h2>
+                            </div>
+                        </div>
+                        <div class="row tm-edit-product-row">
+                            <div class="col-xl-6 col-lg-6 col-md-12">
+                                <form action="" method="post" class="tm-edit-product-form"
+                                    enctype="multipart/form-data">
+                                    <div class="form-group mb-3">
+                                        <label for="name">Item Name
+                                        </label>
+                                        <input id="name" name="itemName" type="text" class="form-control validate"
+                                            required="">
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="name">Brand Name
+                                        </label>
+                                        <input id="name" name="brandName" type="text" class="form-control validate"
+                                            required="">
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="form-group mb-3 col-xs-12 col-sm-6">
+                                            <label for="name">Price
+                                            </label>
+                                            <input id="name" name="price" type="number" class="form-control validate"
+                                                required="">
+                                        </div>
+
+
+                                        <div class="form-group mb-3 col-xs-12 col-sm-6">
+                                            <label for="name">Discount Price
+                                            </label>
+                                            <input id="name" name="discountPrice" type="number"
+                                                class="form-control validate" required="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="description">Product Details</label>
+                                        <textarea class="form-control validate" name="productDetails" rows="3"
+                                            required=""></textarea>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="description">Description</label>
+                                        <textarea class="form-control validate" name="description" rows="3"
+                                            required=""></textarea>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="category">Category</label>
+                                        <select class="custom-select tm-select-accounts" id="category" name="category"
+                                            onblur="selectSub()">
+                                            <option selected="">Select category</option>
+                                            {{#each category}}
+                                            <option value="{{this._id}}">{{this.category}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="category">Subcategory</label>
+                                        <select class="custom-select tm-select-accounts" id="subcategory"
+                                            name="subCategory">
+                                            <option selected="">Select category</option>
+
+
+                                        </select>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group mb-3 col-xs-12 col-sm-6">
+                                            <label for="expire_date">Warranty
+                                            </label>
+                                            <input id="expire_date" name="warranty" type="text"
+                                                class="form-control validate hasDatepicker" data-large-mode="true">
+                                        </div>
+                                        <div class="form-group mb-3 col-xs-12 col-sm-6">
+                                            <label for="stock">Units In Stock
+                                            </label>
+                                            <input id="stock" name="stock" type="text" class="form-control validate"
+                                                required="">
+                                        </div>
+                                    </div>
+
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
+                                <input type="file" class="btn btn-dark btn-block mx-auto" name="image">
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-success btn-block text-uppercase">Add Product
+                                    Now</button>
+                            </div>
+
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('#product-table').DataTable();
+
+        $('#category').blur(function () {
+            const categoryid = $(this).val()
+            axios.get(`/admin/categorys/${categoryid}`).then(e => {
+                console.log(e.data)
+                let output = ``
+                for (i = 0; i < e.data.category.subCategory.length; i++) {
+                    output += `<option value = "${e.data.category.subCategory[i].name}">${e.data.category.subCategory[i].name}</option>`
+                }
+                $('#subcategory').html(output)
+            })
+        })
+
+    });
+</script>
+<script>
+    $('.add-product').click(function () {
+        $('.table').toggle()
+        $('.addproductpage').toggle()
+
+    })
+    $('.delete-product').click(function () {
+        const productid = $(this).attr('productid')
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this imaginary file!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                   axios.delete('', {
+            headers: {
+
+            }, data: {
+                productid
+            }
+        }).then(e => {
+            window.location.reload()
+        });
+                } else {
+                    swal("Your imaginary file is safe!");
+                }
+            });
+        
+ 
+        
+    }
+    )
+</script>

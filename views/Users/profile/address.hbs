@@ -1,0 +1,238 @@
+<div class="main--content">
+    <div class="recent--patients table-content">
+        <div class="title">
+            <h2 class="section--title">Address</h2>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#addModal">
+                Add address
+            </button>
+
+        </div>
+        <div class="table">
+            <table id="user-table">
+                <thead>
+                    <tr>
+                        <th>Address</th>
+                        <th>State</th>
+                        <th>city</th>
+                        <th>Pin</th>
+                        <th>Contact</th>
+                        <th>Edit/Delete</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each address.addresses}}
+                    <tr>
+                        <td>{{this.address}}</td>
+                        <td>{{this.state}}</td>
+                        <td>{{this.city}}</td>
+                        <td>{{this.pin}}</td>
+                        <td>{{this.contact}}</td>
+                        <td>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary edit-address" data-toggle="modal"
+                                data-target="#editModal" addId="{{this._id}}" userId="{{../address.userId}}">
+                                Edit
+                            </button><button class="delete">Delete</button>
+                        </td>
+
+
+
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Address</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="col-12 col-md-offset-4">
+                    <form class="form" action="" method="post">
+                        <fieldset>
+
+                            <!-- Form Name -->
+                            <legend>Address Details</legend>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="textinput">Address</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="address" placeholder="Address"
+                                        class="form-control address">
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="textinput">City</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="city" placeholder="City" class="form-control city">
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="textinput">State</label>
+                                <div class="col-sm-4">
+                                    <input type="text" name="state" placeholder="State" class="form-control state">
+                                </div>
+
+                                <label class="col-sm-2 control-label" for="textinput">Postcode</label>
+                                <div class="col-sm-4">
+                                    <input type="text" name="pin" placeholder="Post Code" class="form-control pin">
+                                </div>
+                            </div>
+
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="textinput">Contact</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="contact" placeholder="Contact"
+                                        class="form-control contact">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <div class="pull-right">
+                                        <button type="submit" class="btn btn-default">Cancel</button>
+                                        <button type="submit" class="btn btn-success">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </fieldset>
+                    </form>
+                </div><!-- /.col-lg-12 -->
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- EditModal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Address</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="col-12 col-md-offset-4">
+                    <form class="form-horizontal" action="" method="post">
+                        <fieldset>
+
+                            <!-- Form Name -->
+                            <legend>Address Details</legend>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="textinput">Address</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="address" placeholder="Address"
+                                        class="form-control address">
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="textinput">City</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="city" placeholder="City" class="form-control city">
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="textinput">State</label>
+                                <div class="col-sm-4">
+                                    <input type="text" name="state" placeholder="State" class="form-control state">
+                                </div>
+
+                                <label class="col-sm-2 control-label" for="textinput">Postcode</label>
+                                <div class="col-sm-4">
+                                    <input type="text" name="pin" placeholder="Post Code" class="form-control pin">
+                                </div>
+                            </div>
+
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="textinput">Contact</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="contact" placeholder="Contact"
+                                        class="form-control contact">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <div class="pull-right">
+                                        <button type="submit" class="btn btn-default">Cancel</button>
+                                        <button type="submit" class="btn btn-success">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </fieldset>
+                    </form>
+                </div><!-- /.col-lg-12 -->
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.edit-address').click(function () {
+            const addId = $(this).attr('addId')
+            const userId = $(this).attr('userId')
+            axios.get(`/users/address/${addId}`).then(e => {
+                $('.form-horizontal').attr('action', `/users/address/${addId}`)
+                $('.address').attr('value', e.data.address[0].address)
+                $('.city').attr('value', e.data.address[0].city)
+                $('.state').attr('value', e.data.address[0].state)
+                $('.pin').attr('value', e.data.address[0].pin)
+                $('.contact').attr('value', e.data.address[0].contact)
+
+
+            })
+        })
+        $('.delete').click(function () {
+
+            const addId = $(this).prev().attr('addId')
+            axios.delete(`/users/address/${addId}`).then(e => {
+                window.location.reload();
+            })
+        })
+    })
+</script>

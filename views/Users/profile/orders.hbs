@@ -1,0 +1,36 @@
+<div class="main--content">
+    <div class="recent--patients table-content">
+        <div class="title">
+            <h2 class="section--title">Orders</h2>
+            
+        </div>
+        <div class="table">
+            <table id="user-table" >
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Total Bill</th>
+                        <th>Paid</th>
+                        <th>Status</th>
+                        <th>Settings</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each users}}
+                    <tr>
+                        <td>{{this.name}}</td>
+                        <td>{{this.email}}</td>
+                        <td>{{this.contactNo}}</td>
+                        {{#if this.status}}
+                        <td class="confirmed">Active</td>
+                        {{else}}
+                        <td class="rejected">Blocked</td>
+                        {{/if}}
+                        <td> {{#if this.status}}<button class="btn btn-danger block" user-id="{{this._id}}">Block</button>{{else}}<button class="btn btn-success unblock" user-id="{{this._id}}">UnBlock</button>{{/if}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

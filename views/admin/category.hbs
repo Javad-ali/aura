@@ -1,0 +1,205 @@
+<div class="main--content">
+    <div class="recent--patients table-content">
+        <div class="title">
+            <h2 class="section--title">All Category</h2>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addmodal">
+                Add Category
+            </button>
+        </div>
+        <div class="table">
+            <table id="user-table">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Sub Category</th>
+                        <th>Settings</th>
+                        <th>Push to Category</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each category}}
+                    <tr>
+                        <td>{{this.category}}</td>
+                        <td>{{#each this.subCategory}}{{this.name}}<br>{{/each}}</td>
+
+                        <td><span><a categoryid="{{this._id}}" class="edit-category" data-toggle="modal"
+                                    data-target="#Editmodal"><i class="ri-edit-line edit"></i></a><a
+                                    class="delete-category" categoryid="{{this._id}}"><i
+                                        class="ri-delete-bin-line delete"></i></a></span>
+                        </td>
+                        <td><button type="button" class="btn btn-primary submodal" categoryid="{{this._id}}"
+                                data-toggle="modal" data-target="#submodal">Add subCategory</button>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<!-- Add Modal -->
+<div class="modal fade" id="addmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add Category</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action=" " method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Category</label>
+                        <input type="text" class="form-control" name="category" placeholder="Enter Category"required >
+                        <small class="form-text text-muted">Please enter category.</small>
+                    </div>                                  
+                    <div class="form-group">                            
+                        <label>File input</label>                                           
+                        <input type="file" class="form-control-file" name="image">                          
+                    </div>                                                                  
+                    {{!-- <button type="submit" class="btn btn-primary">Submit</button> --}}                
+
+            </div>                                                                                                                                                                              
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Add Category</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal fade" id="Editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Edit Category</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">SubCategory</label>
+                    <input type="text" class="form-control" id="edit-category" name="category" 
+                        placeholder="Enter Category" required>
+                    <small class="form-text text-muted">Please enter Subcategory.</small>
+                </div>
+                {{!-- <div class="form-group">
+                    <label>File input</label>
+                    <input type="file" class="form-control-file" id="edit-image" name="image">
+                </div> --}}
+                {{!-- <button type="submit" class="btn btn-primary">Submit</button> --}}
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" id="edit-btn" class="btn btn-primary">Edit Category</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="submodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">sub Category</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Sub Category</label>
+                    <input type="text" class="form-control" id="Add-sub-category" name="subCategory" 
+                        placeholder="Enter Subcategory">
+                    <small class="form-text text-muted">Please enter Sub Category.</small>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary push">add SubCategory</button>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#user-table').DataTable();
+
+        $('.edit-category').click(function () {
+            const categoryid = $(this).attr('categoryid')
+            axios.get(`/admin/categorys/${categoryid}`).then(e => {
+                $('#edit-category').attr('value', e.data.category.category)
+                $('#edit-sub-category').attr('value', e.data.category.subCategory[0].name)
+                $('#edit-categories').attr('value', e, data.category.categoryid)
+
+            })
+            $('#edit-btn').click(function () {
+
+                const category = $('#edit-category').val()
+                axios.post(`/admin/categorys/${categoryid}`, { category }).then(e => {
+                    window.location.reload()
+                })
+            })
+
+        })
+
+        $('.submodal').click(function () {
+            const categoryid = $(this).attr('categoryid')
+            axios.get(`/admin/categorys/${categoryid}`).then(e => {
+                $('#edit-category').attr('value', e.data.category.category)
+                $('#edit-sub-category').attr('value', e.data.category.subCategory[0].name)
+                $('#edit-categories').attr('value', e, data.category.categoryid)
+
+            })
+
+            $('.push').click(function () {
+                const subCategory = $('#Add-sub-category').val()
+                axios.patch(`/admin/categorys/${categoryid}`, { subCategory }).then(e => {
+                    window.location.reload()
+                })
+            })
+        })
+
+
+        $('.delete-category').click(function () {
+            const categoryid = $(this).attr('categoryid')
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this imaginary file!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        axios.delete(`/admin/categorys/${categoryid}`).then(e => {
+                            window.location.reload();
+                        })
+                    } else {
+                        swal("Your imaginary file is safe!");
+                    }
+                });
+
+        })
+
+
+
+    });
+</script>
