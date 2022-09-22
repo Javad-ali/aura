@@ -6,7 +6,10 @@ const verifytoken = (req, res, next) => {
 
     const authHeader = req.headers.cookie;
     if (authHeader) {
-        const token = authHeader.split('=')[1];
+        console.log(authHeader);
+        const token1 = authHeader.split('userToken=')[1];
+        const token =token1.split(';')[0]
+        console.log(token);
         if (token) {
             jwt.verify(token, process.env.JWT_SECRT_KEY, (err, client) => {
                 if (err) {

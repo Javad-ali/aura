@@ -44,11 +44,11 @@
                 <div class="form-outline mb-4">
                   <input type="email" id="email" class="form-control form-control-lg email " />
                 </div>
-{{!-- 
-                  <label class="form-label" for="form3Example3cg">Phone Number</label>
+
                 <div class="form-outline mb-4">
-                  <input type="number" id="number" class="form-control form-control-lg  " />
-                </div> --}}
+                  <label class="form-label" for="form3Example4cg">Phone Number</label>
+                  <input type="tel" id="phNumber" class="form-control form-control-lg password" />
+                </div>
 
                 <div class="form-outline mb-4">
                   <label class="form-label" for="form3Example4cg">Password</label>
@@ -92,6 +92,7 @@
       let Check = true
       let name = $('#name').val();
       let email = $('#email').val();
+      let phoneNumber = $('#phNumber').val();
       let password = $('#password').val();
       let confirm_password = $('#confirm_password').val();
       $(".error").remove();
@@ -110,6 +111,12 @@
           Check = false
           $('#email').after('<span class="error" style="color:red;">Enter a valid email</span>');
         }
+      }
+      if(phoneNumber.length < 1){
+        Check = false
+        $('#phNumber').after('<span class="error" style="color:red;">This field is required<s/pan>');
+      }else if(phoneNumber.length < 10){
+        $('#phNumber').after('<span class="error" style="color:red;">Number must have at least 8 characters long</span>')
       }
       if (password.length < 1) {
         Check = false
@@ -131,7 +138,7 @@
       
       if (Check) {
         axios.post('', {
-          name, email, password
+          name, email, password, phoneNumber
         }).then(e => {
           console.log(e.data)
           if (e.data.status) {

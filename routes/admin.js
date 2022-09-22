@@ -3,6 +3,7 @@ var router = express.Router();
 const mongoose = require('mongoose');
 const adminModel = require('../models/adminModel');
 const userModel = require('../models/userModel');
+const couponModel = require('../models/couponModel');
 const adminController =require('../controller/adminController');
 const verifytokenAndAuthorization = require('../controller/verifyTokenAdmin')
 
@@ -14,9 +15,11 @@ const jwt = require('jsonwebtoken')
 const checkLog = (req, res, next) => {
   const authHeader = req.headers.cookie;
   if (authHeader) {
-      const token = authHeader.split('=')[1];
+    const token1 = authHeader.split('jwt=')[1];
+    const token =token1.split(';')[0]
       if (token) {
           jwt.verify(token, process.env.JWT_SECRT_KEY, (err, client) => {
+            console.log(client)
               if (err) {
                   next()
               } else {
@@ -44,6 +47,19 @@ const storage = multer.diskStorage({
 const uploads = multer({
   storage,
 }).single("image");
+
+
+const banner = multer.diskStorage({
+  destination: "public/images/banner",
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + file.originalname);
+  },
+});
+
+const uploads2 = multer({
+  storage,
+}).single("image");
+
 
 /* GET home page. */
 router.route('/')
@@ -80,6 +96,25 @@ router.route('/categorys/:id')
 
 
 //==========================/////
+
+//===========COUPON========////
+router.route('/coupon')
+.get(verifytokenAndAuthorization,adminController.getAllCoupon)
+.post(adminController.addCoupon)
+
+router.route('/coupon/:couponId')
+.get(verifytokenAndAuthorization,adminController.getAcoupon)
+.post(adminController.editCoupon)
+.delete(adminController.deleteCoupon)
+
+//===========BANNER================///
+router.route('/banner')
+.get(verifytokenAndAuthorization,adminController.getAllBanner)
+.post(uploads2,adminController.addBanner)
+
+router.route('/banner/:bannerId')
+.get(verifytokenAndAuthorization,adminController.getABanner)
+.delete(adminController.deleteBanner)
 
 
 // ========== USER ========= ///

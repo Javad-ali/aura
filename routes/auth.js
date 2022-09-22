@@ -5,18 +5,20 @@ const productModel =require('../models/productModel');
 const bcrypt =require('bcrypt');
 const jwt = require('jsonwebtoken');
 const cartModel = require('../models/cartModel');
-const categoryModel = require('../models/categoryModel')
+const categoryModel = require('../models/categoryModel');
+const twilioController = require('../controller/twilioController');
 
 
 const checkLog = (req, res, next) => {
     const authHeader = req.headers.cookie;
     if (authHeader) {
-        const token = authHeader.split('=')[1];
+      const token1 = authHeader.split('userToken=')[1];
+      const token =token1?.split(';')[0];
         if (token) {
             jwt.verify(token, process.env.JWT_SECRT_KEY, (err, client) => {
                 if (err) {
                     next()
-                } else if(req?.user?.user?._id){
+                } else if(client?.user){
                     res.redirect(`/users/`);
                 }else{
                   next()
@@ -56,7 +58,7 @@ const checkLog = (req, res, next) => {
   
             if(validate){
               const token=jwt.sign({user},process.env.JWT_SECRT_KEY)
-              res.cookie('jwt',token,{
+              res.cookie('userToken',token,{
                 // expires: new Date(Date.now()+100*1000),
                 httpOnly:true
               } ).json({url:`/users`})
@@ -90,13 +92,16 @@ const checkLog = (req, res, next) => {
     const olduser = await userModel.findOne({email:req.body.email})
     if(olduser){
       res.json({status:"failed"})
+
     }else{
       
       const newUser = await  new userModel(req.body)
+      console.log(req.body);
+      twilioController.signupotp(req.body.phNumber)
       newUser.save()
       const user=newUser
       const token= jwt.sign({user},process.env.JWT_SECRT_KEY)
-      res.cookie('jwt',token,{
+      res.cookie('userToken',token,{
         // expires: new Date(Date.now()+100*1000),
         httpOnly:true
       }).json({url:`/users`})

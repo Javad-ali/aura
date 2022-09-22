@@ -1,32 +1,6 @@
 <header class="header-v4">
 		<!-- Header desktop -->
 		<div class="container-menu-desktop">
-			<!-- Topbar -->
-			<div class="top-bar">
-				<div class="content-topbar flex-sb-m h-full container">
-					<div class="left-top-bar">
-						Free shipping for standard order over $100
-					</div>
-
-					<div class="right-top-bar flex-w h-full">
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							Help & FAQs
-						</a>
-
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							My Account
-						</a>
-
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							EN
-						</a>
-
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							USD
-						</a>
-					</div>
-				</div>
-			</div>
 
 			<div class="wrap-menu-desktop how-shadow1">
 				<nav class="limiter-menu-desktop container">
@@ -39,17 +13,8 @@
 					<!-- Menu desktop -->
 					<div class="menu-desktop">
 						<ul class="main-menu">
-							{{!-- <li>
-								<a href="index.html">Home</a>
-								<ul class="sub-menu">
-									<li><a href="index.html">Homepage 1</a></li>
-									<li><a href="home-02.html">Homepage 2</a></li>
-									<li><a href="home-03.html">Homepage 3</a></li>
-								</ul>
-							</li> --}}
-
 							<li>
-								<a href="product.html">Shop</a>
+								<a href="/users#shopp">Shop</a>
 							</li>
 
 							<li>
@@ -57,7 +22,14 @@
 							</li>
 
 							<li>
-								<a href="contact.html">Contact</a>
+								<a href="#">Contact</a>
+								<ul class="sub-menu">
+									<li><a href="https://www.instagram.com/aurahomecenter/" target="_blank"><i class="zmdi zmdi-instagram"></i> instagram</a></li>
+									<li><a href="mailto:info@aurahomecenter.com"> <i class="zmdi zmdi-email"></i> email</a></li>
+									<li><a href="https://www.facebook.com/aurahomecenter/" target="_blank"><i class="zmdi zmdi-facebook"></i> Facebook</a></li>
+									<li><a href=" https://wa.me/916235077710" target="_blank"> <i class="zmdi zmdi-whatsapp"></i> Whatsapp</a></li>
+
+								</ul>
 							</li>
 						</ul>
 					</div>	
@@ -239,7 +211,7 @@
 							View Cart
 						</a>
 
-						<a href="shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
+						<a href="/users/checkOut" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
 							Check Out
 						</a>
 					</div>
@@ -404,8 +376,7 @@
 							</div>
 						</div>
 
-						<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
-							Proceed to Checkout
+					<a class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" href="/users/checkout">Proceed to Checkout</a>	
 						</button>
 					</div>
 				</div>
@@ -426,29 +397,13 @@
 					</h4>
 
 					<ul>
+						{{#each category}}
 						<li class="p-b-10">
 							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Women
+								{{this.category}}
 							</a>
-						</li>
-
-						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Men
-							</a>
-						</li>
-
-						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Shoes
-							</a>
-						</li>
-
-						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Watches
-							</a>
-						</li>
+ 						</li>
+                        {{/each}}
 					</ul>
 				</div>
 
@@ -490,70 +445,49 @@
 					</h4>
 
 					<p class="stext-107 cl7 size-201">
-						Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on (+1) 96 716 6879
+						Any queries? call us on (+91) 916235077710
 					</p>
 
 					<div class="p-t-27">
-						<a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+						<a href="https://www.facebook.com/aurahomecenter/" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
 							<i class="fa fa-facebook"></i>
 						</a>
 
-						<a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+						<a href="https://www.instagram.com/aurahomecenter/" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
 							<i class="fa fa-instagram"></i>
 						</a>
 
-						<a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-							<i class="fa fa-pinterest-p"></i>
+						<a href="https://wa.me/916235077710" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+							<i class="fa fa-whatsapp"></i>
 						</a>
 					</div>
 				</div>
 
 				<div class="col-sm-6 col-lg-3 p-b-50">
 					<h4 class="stext-301 cl0 p-b-30">
-						Newsletter
+						MAIL TO
 					</h4>
 
 					<form>
 						<div class="wrap-input1 w-full p-b-4">
-							<input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email" placeholder="email@example.com">
+							<input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email" placeholder="info@aurahomecenter.com">
 							<div class="focus-input1 trans-04"></div>
 						</div>
 
 						<div class="p-t-18">
-							<button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">
-								Subscribe
-							</button>
+						<a href="mailto:info@aurahomecenter.com" class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">Click here</a>
+
 						</div>
 					</form>
 				</div>
 			</div>
 
 			<div class="p-t-40">
-				<div class="flex-c-m flex-w p-b-18">
-					<a href="#" class="m-all-1">
-						<img src="images/icons/icon-pay-01.png" alt="ICON-PAY">
-					</a>
-
-					<a href="#" class="m-all-1">
-						<img src="images/icons/icon-pay-02.png" alt="ICON-PAY">
-					</a>
-
-					<a href="#" class="m-all-1">
-						<img src="images/icons/icon-pay-03.png" alt="ICON-PAY">
-					</a>
-
-					<a href="#" class="m-all-1">
-						<img src="images/icons/icon-pay-04.png" alt="ICON-PAY">
-					</a>
-
-					<a href="#" class="m-all-1">
-						<img src="images/icons/icon-pay-05.png" alt="ICON-PAY">
-					</a>
-				</div>
+				
 
 				<p class="stext-107 cl6 txt-center">
 					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> &amp; distributed by <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Aurahomecenter
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 
 				</p>

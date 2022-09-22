@@ -1,8 +1,23 @@
-// const twilio = require('twilio')
+const twilio = require('twilio')
+const dotenv = require('dotenv')
+dotenv.config({path:'./.env'})
 
-// confiq ={
-//     ServiceSID:"VAb72e2fc20b69743b2716495458b12471",
-//     AccountSID:"ACe3e0d2f5be5dd89f12ebc02252f1f3e4",
-//     AuthToken:"a2726a5ed0f745d3285a3027f5e00e54",
-// };
-// const client = require('twilio')(accountSid, authToken);
+const config =process.env.config
+
+const ServiceSID = process.env.ServiceSID
+const accountSid = process.env.AccountSID;
+const authToken = process.env.AuthToken;
+const client = require('twilio')(accountSid, authToken,ServiceSID);
+
+module.exports ={
+    signupotp:(number)=>{
+        return new Promise((resolve,reject)=>{
+            client.verify.v2.services(ServiceSID).verifications.create({
+                to:'+91' +number,
+                channel:'sms'
+            }).then(data=>{
+                resolve(data)
+            })
+        })
+    },
+}

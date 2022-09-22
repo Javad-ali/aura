@@ -1,0 +1,159 @@
+<div class="main--content">
+    <div class="recent--patients table-content">
+        <div class="title">
+            <h2 class="section--title">All Coupon</h2>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addmodal">
+                Add Coupon
+            </button>
+        </div>
+        <div class="table">
+            <table id="user-table">
+                <thead>
+                    <tr>
+                        <th>Coupon Code</th>
+                        <th>Coupon Name</th>
+                        <th>Discount</th>
+                        <th>Edit/Delete</th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each coupon}}
+                    <tr>
+                        <td>{{this.couponCode}}</td>
+                        
+                        <td>{{this.couponName}}</td>
+                       
+                        <td>{{this.discount}}</td>
+                        <td><span><a couponid="{{this._id}}" class="edit-coupon" data-toggle="modal"
+                                    data-target="#Editmodal"><i class="ri-edit-line edit"></i></a><a
+                                    class="delete-coupon" couponid="{{this._id}}"><i
+                                        class="ri-delete-bin-line delete"></i></a></span>
+                        </td>
+                        {{!-- <td><button type="button" class="btn btn-primary submodal" categoryid="{{this._id}}"
+                                data-toggle="modal" data-target="#submodal">Add subCategory</button> --}}
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<!-- Add Modal -->
+<div class="modal fade" id="addmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add Coupon</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action=" " method="post" >
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Coupon Name</label>
+                        <input type="text" class="form-control" name="couponName" placeholder="Enter Category"required >
+                        <small class="form-text text-muted">Please enter coupon Name.</small>
+                    </div>
+                     <div class="form-group">
+                        <label for="exampleInputEmail1">Coupon Code</label>
+                        <input type="text" class="form-control" name="couponCode" placeholder="Enter Category"required >
+                        <small class="form-text text-muted">Please enter coupon Code.</small>
+                    </div>
+                     <div class="form-group">
+                        <label for="exampleInputEmail1">Discount</label>
+                        <input type="text" class="form-control" name="discount" placeholder="Enter Category"required >
+                        <small class="form-text text-muted">Please enter discount.</small>
+                    </div>
+                                                      
+                                                                                      
+
+            </div>                                                                                                                                                                              
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Add Coupon</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Edit Modal -->
+<div class="modal fade" id="Editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Edit Coupon</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+ <form action="" method="post" id="form-id">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Coupon Name</label>
+                    <input type="text" class="form-control" id="coupon-Name" name="couponName" 
+                        placeholder="Enter Category" required>
+                    <small class="form-text text-muted">Please enter Coupon Name.</small>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Coupon Code</label>
+                    <input type="text" class="form-control" id="coupon-code" name="couponCode" 
+                        placeholder="Enter Category" required>
+                    <small class="form-text text-muted">Please enter Coupon Code.</small>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Discount</label>
+                    <input type="text" class="form-control" id="discount" name="discount" 
+                        placeholder="Enter Category" required>
+                    <small class="form-text text-muted">Please enter Discount.</small>
+                </div>
+              
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" id="edit-btn" class="btn btn-primary">Edit Category</button>
+</form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+  <script>
+    $(document).ready( function(){
+      
+      $('.edit-coupon').click(function(){
+       
+    const couponId = $(this).attr('couponid')
+
+        axios.get(`/admin/coupon/${couponId}`).then((e)=>{
+            $('#coupon-Name').attr('value',e.data.coupon.couponName)
+            $('#coupon-code').attr('value',e.data.coupon.couponCode)
+            $('#discount').attr('value',e.data.coupon.discount)
+            $('#form-id').attr('action',`/admin/coupon/${couponId}`)
+        })
+
+      })
+      $('.delete-coupon').click(function(){
+        
+        const couponId = $(this).attr('couponid')
+
+        axios.delete(`/admin/coupon/${couponId}`).then((e)=>{
+            window.location.reload()
+        })
+
+      })
+
+    })
+
+    
+  </script>

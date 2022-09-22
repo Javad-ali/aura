@@ -11,7 +11,8 @@ const async = require('hbs/lib/async');
 const cartModel = require('../models/cartModel');
 const addressModel = require('../models/addressModel')
 const { findOne } = require('../models/userModel');
-const verifytokenAndAuthorization = require('../controller/verifyToken')
+const verifytokenAndAuthorization = require('../controller/verifyToken');
+const bannerModel = require('../models/bannerModel');
 
 
 
@@ -38,7 +39,7 @@ const checkLog = (req, res, next) => {
 
 }
 
-/* GET users listing. */
+/* Landing Page */
 router.get('/',checkLog,async function(req, res, next) {
   const products=await  productModel.find().lean()
   res.render('Users/landingPage',{products});
@@ -50,7 +51,7 @@ router.get('/',checkLog,async function(req, res, next) {
 
 
 router.route('/logout').get((req,res)=>{
-  res.cookie('jwt', 'loggedout', {
+  res.cookie('userToken', 'loggedout', {
     expires: new Date(Date.now() + 10 * 1000),
     httpOnly: true
 }).redirect('/');
@@ -71,7 +72,8 @@ router.route('/users').get(verifytokenAndAuthorization,async(req,res)=>{
   const products=await productModel.find().populate('category').lean()
   const cart = await cartModel.findOne({userId:req.user.user._id}).lean().populate({path:'products',populate:'product'})
   const category= await categoryModel.find().lean()
-  res.render('Users/usersHome',{products,category,user,cart})
+  const banner= await bannerModel.find().lean()
+  res.render('Users/usersHome',{products,category,user,cart,banner})
 })
 //  ======================================////////
 
@@ -79,7 +81,7 @@ router.route('/users').get(verifytokenAndAuthorization,async(req,res)=>{
 
 router.route('/users/address').get(verifytokenAndAuthorization,async(req,res)=>{
   const address = await addressModel.findOne({userId:req.user.user._id}).lean()
-  res.render('Users/profile/address',{layout:'adminlayout',address})
+  res.render('Users/profile/address',{layout:'profilelayout',address})
 })
 
 //  ======== address ============///
@@ -135,11 +137,12 @@ router.route('/users/cart')
 .get( verifytokenAndAuthorization,async(req,res)=>{
   const cart= await cartModel.findOne({userId:req.user.user._id}).populate({path:'products',populate:{path:'product'}}).lean()
 const user= await userModel.findById(req.user.user._id).lean()
-  res.render('Users/cart',{cart,user})
+const category= await categoryModel.find().lean()
+
+  res.render('Users/cart',{cart,user,category})
 })
 
   .post( verifytokenAndAuthorization, async(req,res)=>{
-    console.log(req.body)
     const discountPrice = await productModel.findById(req.body.prodId,{product:{discountPrice:1}})
     const totalPrice= (discountPrice.product.discountPrice*1)*req.body.qty
     const oldCart =await cartModel.findOne({userId:req.user.user._id})
@@ -148,10 +151,12 @@ const finalPrice= oldCart.products.reduce((acc,crr)=>{
   return acc+crr.price
 },0)
       const oldProduct= await cartModel.findOne({'products.product':req.body.prodId})
-      console.log(oldProduct)
 
       if(oldProduct){
-
+        if(oldProduct.qty== 1 && req.body.qty== -1){
+          console.log('pull');
+          await cartModel.updateOne({'products.product':req.body.prodId},{"$pull":{'products.$.product':req.body.prodId}})
+        }
         const cart= await cartModel.updateOne({'products.product':req.body.prodId},{'$inc':{'products.$.qty':req.body.qty,'products.$.price':totalPrice}})
         await cartModel.findByIdAndUpdate(oldCart._id,{$inc:{totalPrice}})
         console.log(cart)
@@ -182,7 +187,9 @@ const finalPrice= oldCart.products.reduce((acc,crr)=>{
 router.route('/users/checkout').get(verifytokenAndAuthorization,async(req,res)=>{
   const cart= await cartModel.findOne({userId:req.user.user._id}).populate({path:'products',populate:{path:'product'}}).lean()
   const user= await userModel.findById(req.user.user._id).lean()
-    res.render('Users/checkOut',{cart,user})
+  const category= await categoryModel.find().lean()
+
+    res.render('Users/checkOut',{cart,user,category})
 })
 
 

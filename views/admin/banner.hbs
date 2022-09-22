@@ -1,0 +1,98 @@
+<div class="main--content">
+    <div class="recent--patients table-content">
+        <div class="title">
+            <h2 class="section--title">All Banner</h2>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addmodal">
+                Add Banner
+            </button>
+        </div>
+        <div class="table">
+            <table id="user-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Heading</th>
+                        <th>Image</th>
+                        <th>Delete</th>
+
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each banner}}
+                    <tr>
+                        <td>{{this.name}}</td>
+                        <td>{{this.heading}}</td>
+                        {{!-- <td>{{this.image}}</td> --}}
+                        <td><img src="/images/items/{{this.image}}" class="img--box"></td>
+
+
+
+
+
+                        <td><span><a  class="delete-coupon" bannerid="{{this._id}}"><i
+                                        class="ri-delete-bin-line delete"></i></a></span>
+                        </td>
+
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Add Modal -->
+<div class="modal fade" id="addmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add Banner</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action=" " method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">name</label>
+                        <input type="text" class="form-control" name="name" placeholder="Enter Category"required >
+                        <small class="form-text text-muted">Please enter name.</small>
+                    </div>  
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">heading</label>
+                        <input type="text" class="form-control" name="heading" placeholder="Enter Category"required >
+                        <small class="form-text text-muted">Please enter heading.</small>
+                    </div>     
+
+                    <div class="form-group">                            
+                        <label>File input</label>                                           
+                        <input type="file" class="form-control-file" name="image">                          
+                    </div>                                                                  
+
+            </div>                                                                                                                                                                              
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Add Banner</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+          $('.delete-coupon').click(function(){
+        
+        const bannerId = $(this).attr('bannerid')
+
+        axios.delete(`/admin/banner/${bannerId}`).then((e)=>{
+            window.location.reload()
+        })
+
+      })
+    })
+</script>

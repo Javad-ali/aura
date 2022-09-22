@@ -5,19 +5,22 @@ const adminModel = require('../models/adminModel');
 const verifytoken = (req, res, next) => {
     const authHeader = req.headers.cookie;
     if (authHeader) {
-        const token = authHeader.split('=')[1];
+        console.log(req.headers);
+        const token1 = authHeader.split('jwt=')[1];
+        const token =token1.split(';')[0]
         if (token) {
-            jwt.verify(token, process.env.JWT_SECRT_KEY,async (err, client) => {
+            jwt.verify(token, process.env.JWT_SECRT_KEY, async (err, client) => {
                 if (err) {
                     console.log(err)
                     res.redirect('/admin');
                 } else {
-                    const admin = await adminModel.findById(client._id)
-                    console.log(admin)
-                    if(admin){
+                    console.log(client);
+                    const admin = await adminModel.findById(client.admin._id)
+                   
+                    if (admin) {
                         req.admin = client;
                         next();
-                    }else{
+                    } else {
                         res.render('admin/adminLogin');
                     }
                 }
@@ -33,7 +36,8 @@ const verifytoken = (req, res, next) => {
 
 const verifytokenAndAuthorization = (req, res, next) => {
     verifytoken(req, res, () => {
-        if (req.admin.admin._id){
+    
+        if (req.admin.admin._id) {
             next();
         } else {
             res.status(500).json({

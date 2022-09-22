@@ -9,6 +9,8 @@ const bcrypt =require('bcrypt');
 const categoryModel = require('../models/categoryModel');
 const subCategoryModel = require('../models/subCategoryModel');
 const async = require('hbs/lib/async');
+const couponModel = require('../models/couponModel');
+const bannerModel = require('../models/bannerModel')
 
 
 
@@ -224,5 +226,102 @@ exports.unblockUser =async(req,res)=>{
     res.json({message:'user unblocked successfully'})
   } catch (error) {
     console.log(error)
+  }
+}
+
+//==============COUPON===========//
+
+exports.getAllCoupon= async (req,res)=>{
+  try {
+    const coupon= await couponModel.find()
+    res.render('admin/coupon',{layout:'adminlayout',coupon})
+  } catch (error) {
+    console.log(error);
+    
+  }
+}
+
+exports.addCoupon = async (req,res)=>{
+ try {
+const coupon = await new couponModel({couponCode:req.body.couponCode,couponName:req.body.couponName,discount:req.body.discount})
+coupon.save()
+res.redirect('/admin/coupon')
+ } catch (error) {
+  console.log(error);
+  
+ }
+}
+
+exports.editCoupon = async (req,res)=>{
+  try {
+    console.log(req.body);
+    const coupon = await couponModel.findByIdAndUpdate(req.params.couponId,{$set:req.body})
+    res.redirect('/admin/coupon')
+  } catch (error) {
+    console.log(error);
+    
+  }
+}
+
+exports.deleteCoupon =  async (req,res)=>{
+  try {
+    await couponModel.findByIdAndDelete(req.params.couponId)
+    res.json({message:"deleted successfully"})
+  } catch (error) {
+    console.log(error);
+    
+  }
+}
+
+exports.getAcoupon = async (req,res)=>{
+  try {
+    const coupon= await couponModel.findById(req.params.couponId)
+    res.json({coupon})
+  } catch (error) {
+    console.log(error);
+    
+  }
+}
+///=========BANNER======////////
+exports.getAllBanner =async(req,res)=>{
+  try {
+    const banner= await bannerModel.find()
+    console.log(banner);
+    res.render('admin/banner',{layout:'adminlayout',banner})
+
+  } catch (error) {
+    console.log(error);
+    
+  }
+}
+exports.addBanner = async (req,res)=>{
+  try {
+ const banner = await new bannerModel({name:req.body.name,heading:req.body.heading,image:req.file.filename})
+ console.log(banner);
+ banner.save()
+ res.redirect('/admin/banner')
+  } catch (error) {
+   console.log(error);
+   
+  }
+ }
+
+ exports.deleteBanner =  async (req,res)=>{
+  try {
+    await bannerModel.findByIdAndDelete(req.params.bannerId)
+    res.json({message:"deleted successfully"})
+  } catch (error) {
+    console.log(error);
+    
+  }
+}
+
+exports.getABanner = async (req,res)=>{
+  try {
+    const banner= await bannerModel.findById(req.params.bannerId)
+    res.json({banner})
+  } catch (error) {
+    console.log(error);
+    
   }
 }

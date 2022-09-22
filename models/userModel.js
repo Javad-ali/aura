@@ -12,7 +12,12 @@ const userSchema=mongoose.Schema({
      status:{type:Boolean,
     default:true} ,
 
-    phoneNumber:Number
+    phoneNumber:Number,
+
+    coupon:[{ type:mongoose.Schema.Types.ObjectId,
+        ref:"coupon"
+    }],
+
 
 });
 userSchema.pre('save',async function(next){

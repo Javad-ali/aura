@@ -202,6 +202,13 @@
     $('.js-hide-cart').on('click',function(){
         $('.js-panel-cart').removeClass('show-header-cart');
     });
+    $('.js-show-cart-1').on('click',function(){
+        $('.js-panel-cart-1').addClass('show-header-cart');
+    });
+
+    $('.js-hide-cart-1').on('click',function(){
+        $('.js-panel-cart-1').removeClass('show-header-cart');
+    });
 
     /*==================================================================
     [ Cart ]*/
@@ -220,7 +227,7 @@
         if(numProduct > 0){
             const userId =$(this).attr('userId')
             const prodId =$(this).attr('prodId')
-            axios.post(`/users/${userId}/cart`,{
+            axios.post(`/users/cart`,{
                 prodId,
                 qty:-1
     
