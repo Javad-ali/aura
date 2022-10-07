@@ -24,7 +24,7 @@
 
     display: block;
     overflow: hidden;
-
+margin-top: 10px;
     margin: 0;
     padding: 0;
 }
@@ -51,7 +51,7 @@
 .slick-track
 {
     position: relative;
-    top: 0;
+    top: 22px;
     left: 0;
 
     display: block;

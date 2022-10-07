@@ -33,16 +33,20 @@
 
 
 							<li>
-								<a href="about.html">About</a>
+								<a href="/users/about">About</a>
 							</li>
 
 							<li>
 								<a href="#">Contact</a>
 								<ul class="sub-menu">
-									<li><a href="https://www.instagram.com/aurahomecenter/" target="_blank"><i class="zmdi zmdi-instagram"></i> instagram</a></li>
-									<li><a href="mailto:info@aurahomecenter.com"> <i class="zmdi zmdi-email"></i> email</a></li>
-									<li><a href="https://www.facebook.com/aurahomecenter/" target="_blank"><i class="zmdi zmdi-facebook"></i> Facebook</a></li>
-									<li><a href=" https://wa.me/916235077710" target="_blank"> <i class="zmdi zmdi-whatsapp"></i> Whatsapp</a></li>
+									<li><a href="https://www.instagram.com/aurahomecenter/" target="_blank"><i
+												class="zmdi zmdi-instagram"></i> instagram</a></li>
+									<li><a href="mailto:info@aurahomecenter.com"> <i class="zmdi zmdi-email"></i>
+											email</a></li>
+									<li><a href="https://www.facebook.com/aurahomecenter/" target="_blank"><i
+												class="zmdi zmdi-facebook"></i> Facebook</a></li>
+									<li><a href=" https://wa.me/916235077710" target="_blank"> <i
+												class="zmdi zmdi-whatsapp"></i> Whatsapp</a></li>
 
 								</ul>
 							</li>
@@ -63,21 +67,21 @@
 						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
 							<i class="zmdi zmdi-search"></i>
 						</div>
+						<a href="/login" class=" icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
+							data-notify="0">
+							<i class="zmdi zmdi-shopping-cart"></i>
+
+							{{!-- <div
+								class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
+								data-notify="2">
+								<i class="zmdi zmdi-shopping-cart"></i>
+							</div> --}}
+
 							<a href="/login"
-							class=" icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
-							data-notify="0">
-							<i class="zmdi zmdi-shopping-cart"></i>
-
-						{{!-- <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-							data-notify="2">
-							<i class="zmdi zmdi-shopping-cart"></i>
-						</div> --}}
-
-						<a href="/login"
-							class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
-							data-notify="0">
-							<i class="zmdi zmdi-favorite-outline"></i>
-						</a>
+								class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
+								data-notify="0">
+								<i class="zmdi zmdi-favorite-outline"></i>
+							</a>
 					</div>
 				</nav>
 			</div>
@@ -87,7 +91,7 @@
 		<div class="wrap-header-mobile">
 			<!-- Logo moblie -->
 			<div class="logo-mobile">
-				<a href="index.html"><img src="images/icons/logo-01.png" alt="IMG-LOGO"></a>
+				<a href="#shopp"><img src="images/icons/logo-01.png" alt="IMG-LOGO"></a>
 			</div>
 
 			<!-- Icon header -->
@@ -97,12 +101,12 @@
 				</div>
 
 				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart"
-					data-notify="2">
+					data-notify="{{cart.products.length}}">
 					<i class="zmdi zmdi-shopping-cart"></i>
 				</div>
 
 				<a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti"
-					data-notify="0">
+					data-notify="{{wishlist.products.length}}">
 					<i class="zmdi zmdi-favorite-outline"></i>
 				</a>
 			</div>
@@ -118,74 +122,45 @@
 
 		<!-- Menu Mobile -->
 		<div class="menu-mobile">
-			<ul class="topbar-mobile">
+				<ul class="main-menu-m">
+
 				<li>
-					<div class="left-top-bar">
-						Free shipping for standard order over $100
-					</div>
+					<a href="#shopp">Shop</a>
+				</li>
+
+
+
+
+
+				<li>
+					<a href="/users/about">About</a>
 				</li>
 
 				<li>
-					<div class="right-top-bar flex-w h-full">
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
-							Help & FAQs
-						</a>
-
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
-							My Account
-						</a>
-
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
-							EN
-						</a>
-
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
-							USD
-						</a>
-					</div>
-				</li>
-			</ul>
-
-			<ul class="main-menu-m">
-				<li>
-					<a href="index.html">Home</a>
+					<a href="#">Contact</a>
 					<ul class="sub-menu-m">
-						<li><a href="index.html">Homepage 1</a></li>
-						<li><a href="home-02.html">Homepage 2</a></li>
-						<li><a href="home-03.html">Homepage 3</a></li>
+						<li><a href="https://www.instagram.com/aurahomecenter/" target="_blank"><i
+												class="zmdi zmdi-instagram"></i> instagram</a></li>
+						<li><a href="https://www.facebook.com/aurahomecenter/" target="_blank"><i
+												class="zmdi zmdi-facebook"></i> Facebook</a></li>
+						<li><a href=" https://wa.me/916235077710" target="_blank"> <i
+												class="zmdi zmdi-whatsapp"></i> Whatsapp</a></li>
 					</ul>
 					<span class="arrow-main-menu-m">
 						<i class="fa fa-angle-right" aria-hidden="true"></i>
 					</span>
 				</li>
-
-				<li>
-					<a href="product.html">Shop</a>
-				</li>
-
-
-
-
-
-				<li>
-					<a href="about.html">About</a>
-				</li>
-
-				<li>
-					<a href="contact.html">Contact</a>
-				</li>
-				<li>
+<li>
 					<a href="#">Account</a>
 					<ul class="sub-menu-m">
-						<li><a href="/signup">signup</a></li>
-						<li><a href="/login">login</a></li>
-						
+						<li><a href="/users/profile">Profile</a></li>
+						<li><a href="#">Orders</a></li>
+						<li><a href="/logout">Logout</a></li>
 					</ul>
 					<span class="arrow-main-menu-m">
 						<i class="fa fa-angle-right" aria-hidden="true"></i>
 					</span>
 				</li>
-
 			</ul>
 		</div>
 
@@ -267,7 +242,8 @@
 	<section class="section-slide">
 		<div class="wrap-slick1">
 			<div class="slick1">
-				<div class="item-slick1" style="background-image: url(images/slide-01.jpg);">
+				{{#each banner}}
+				<div class="item-slick1" style="background-image: url(images/items/{{this.image}});">
 					<div class="container h-full">
 						<div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
 							<div class="layer-slick1 animated visible-false" data-appear="fadeInDown" data-delay="0">
@@ -291,6 +267,8 @@
 						</div>
 					</div>
 				</div>
+				{{/each}}
+
 			</div>
 		</div>
 	</section>
@@ -344,12 +322,12 @@
 					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
 						All Products
 					</button>
-                       {{#each category}}
+					{{#each category}}
 					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".{{this.category}}">
-							{{this.category}}
+						{{this.category}}
 					</button>
-                      {{/each}}
-			
+					{{/each}}
+
 				</div>
 
 				<div class="flex-w flex-c-m m-tb-10">
@@ -609,10 +587,8 @@
 
 							<div class="block2-txt-child2 flex-r p-t-3">
 								<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-									<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png"
-										alt="ICON">
-									<img class="icon-heart2 dis-block trans-04 ab-t-l"
-										src="images/icons/icon-heart-02.png" alt="ICON">
+									<a href="/login"><img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png"
+										alt="ICON"></a>
 								</a>
 							</div>
 						</div>
@@ -688,15 +664,17 @@
 					</h4>
 
 					<p class="stext-107 cl7 size-201">
-						Any questions?  call us on (+91) 916235077710
+						Any questions? call us on (+91) 916235077710
 					</p>
 
 					<div class="p-t-27">
-						<a href="https://www.facebook.com/aurahomecenter/" target="_blank" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+						<a href="https://www.facebook.com/aurahomecenter/" target="_blank"
+							class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
 							<i class="fa fa-facebook"></i>
 						</a>
 
-						<a href="https://www.instagram.com/aurahomecenter/" target="_blank" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+						<a href="https://www.instagram.com/aurahomecenter/" target="_blank"
+							class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
 							<i class="fa fa-instagram"></i>
 						</a>
 
@@ -719,7 +697,9 @@
 						</div>
 
 						<div class="p-t-18">
-						<a href="mailto:info@aurahomecenter.com" class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">Click here</a>
+							<a href="mailto:info@aurahomecenter.com"
+								class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">Click
+								here</a>
 
 						</div>
 					</form>

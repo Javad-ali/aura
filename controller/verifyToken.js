@@ -4,12 +4,10 @@ const mongoose = require('mongoose')
 const userModel = require('../models/userModel')
 const verifytoken = (req, res, next) => {
 
-    const authHeader = req.headers.cookie;
+    const authHeader = req.headers?.cookie;
     if (authHeader) {
-        console.log(authHeader);
-        const token1 = authHeader.split('userToken=')[1];
-        const token =token1.split(';')[0]
-        console.log(token);
+        const token1 = authHeader?.split('userToken=')[1];
+        const token =token1?.split(';')[0]
         if (token) {
             jwt.verify(token, process.env.JWT_SECRT_KEY, (err, client) => {
                 if (err) {

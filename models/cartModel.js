@@ -6,7 +6,7 @@ const cartSchema =new mongoose.Schema({
     products:[{product:{type:mongoose.Schema.Types.ObjectId,ref:"product"},price:Number,qty:Number}]
     
     
-})
+},{timestamps:true})
 
 const cartModel = mongoose.model('cart',cartSchema)
 

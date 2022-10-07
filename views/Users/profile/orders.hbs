@@ -1,32 +1,36 @@
+
 <div class="main--content">
     <div class="recent--patients table-content">
         <div class="title">
             <h2 class="section--title">Orders</h2>
             
         </div>
-        <div class="table">
-            <table id="user-table" >
+        <div class="table" >
+            <table id="order-table" >
                 <thead>
                     <tr>
                         <th>Id</th>
                         <th>Total Bill</th>
                         <th>Paid</th>
-                        <th>Status</th>
-                        <th>Settings</th>
+                        <th>Products</th>
+                        <th>Payment Type</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {{#each users}}
+                    {{#each orders}}
                     <tr>
-                        <td>{{this.name}}</td>
-                        <td>{{this.email}}</td>
-                        <td>{{this.contactNo}}</td>
-                        {{#if this.status}}
+                        <td class="ri-arrow-right-up-line" ><a href="/users/orderDetails/{{this._id}}">{{this.id}} </a></td>
+                        <td>{{this.grandTotal}}</td>
+                        <td>{{this.paymentType}}</td>
+                       <td>{{#each this.products}}{{this.product.product.brandName}} {{this.product.product.itemName}}
+                            {{/each}}</td>
+                            <td>{{this.paymentType}}</td>
+                        {{!-- {{#if this.status}}
                         <td class="confirmed">Active</td>
                         {{else}}
-                        <td class="rejected">Blocked</td>
+                        <td class="rejected">Pending</td>
                         {{/if}}
-                        <td> {{#if this.status}}<button class="btn btn-danger block" user-id="{{this._id}}">Block</button>{{else}}<button class="btn btn-success unblock" user-id="{{this._id}}">UnBlock</button>{{/if}}</td>
+                        <td> {{#if this.status}}<button class="btn btn-danger block" user-id="{{this._id}}">Block</button>{{else}}<button class="btn btn-success unblock" user-id="{{this._id}}">UnBlock</button>{{/if}}</td> --}}
                     </tr>
                     {{/each}}
                 </tbody>
@@ -34,3 +38,12 @@
         </div>
     </div>
 </div>
+
+
+
+
+
+
+
+
+

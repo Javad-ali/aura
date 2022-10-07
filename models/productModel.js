@@ -16,7 +16,7 @@ const productSchema =mongoose.Schema({
         ref:"category"},
     subCategory:String
     
-})
+},{timestamps:true})
 
 
 const productModel =mongoose.model('product',productSchema)

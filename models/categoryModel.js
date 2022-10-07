@@ -3,7 +3,7 @@ const mongoose =require('mongoose')
     {
         category:String,
         image:String
-    }
+    },{timestamps:true}
  )
  const categoryModel =mongoose.model('category',categorySchema)
  module.exports=categoryModel

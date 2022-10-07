@@ -19,7 +19,7 @@ const checkLog = (req, res, next) => {
     const token =token1.split(';')[0]
       if (token) {
           jwt.verify(token, process.env.JWT_SECRT_KEY, (err, client) => {
-            console.log(client)
+            // console.log(client)
               if (err) {
                   next()
               } else {
@@ -36,6 +36,7 @@ const checkLog = (req, res, next) => {
 }
 
 const multer =require('multer');
+const { Router } = require('express');
 
 const storage = multer.diskStorage({
   destination: "public/images/items",
@@ -71,6 +72,7 @@ router.route('/home').get(verifytokenAndAuthorization,adminController.getHomePag
 
 ///////////////////////////////
 
+
 // ========= PRODUCT ====== ///
 
 router.route('/products')
@@ -97,6 +99,12 @@ router.route('/categorys/:id')
 
 //==========================/////
 
+//==========ORDERS==========////
+router.route('/orders')
+.get(verifytokenAndAuthorization,adminController.getAllOrders)
+
+// .post(verifytokenAndAuthorization,adminController.edit)
+
 //===========COUPON========////
 router.route('/coupon')
 .get(verifytokenAndAuthorization,adminController.getAllCoupon)
@@ -115,7 +123,17 @@ router.route('/banner')
 router.route('/banner/:bannerId')
 .get(verifytokenAndAuthorization,adminController.getABanner)
 .delete(adminController.deleteBanner)
+///=======================================///
 
+///============STATUS======================///
+router.route('/status')
+.post(verifytokenAndAuthorization,adminController.postStatus)
+
+//========================================================///
+
+//================CANCEL ORDER=============================////
+router.route('/cancelOrder')
+.post(verifytokenAndAuthorization,adminController.cancelOrder)
 
 // ========== USER ========= ///
 
@@ -133,7 +151,7 @@ router.route('/logout').get((req,res)=>{
     httpOnly: true
 }).redirect('/admin');
 })
-
+//==============================================//
 
 module.exports = router;
 

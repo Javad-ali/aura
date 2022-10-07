@@ -3,11 +3,11 @@ const jwt = require('jsonwebtoken');
 const adminModel = require('../models/adminModel');
 
 const verifytoken = (req, res, next) => {
-    const authHeader = req.headers.cookie;
+    const authHeader = req?.headers?.cookie;
     if (authHeader) {
-        console.log(req.headers);
-        const token1 = authHeader.split('jwt=')[1];
-        const token =token1.split(';')[0]
+        console.log(authHeader);
+        const token1 = authHeader?.split('jwt=')[1];
+        const token =token1?.split(';')[0]
         if (token) {
             jwt.verify(token, process.env.JWT_SECRT_KEY, async (err, client) => {
                 if (err) {

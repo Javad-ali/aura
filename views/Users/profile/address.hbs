@@ -32,7 +32,7 @@
                         <td>
                             <!-- Button trigger modal -->
                             <button type="button" class="btn btn-primary edit-address" data-toggle="modal"
-                                data-target="#editModal" addId="{{this._id}}" userId="{{../address.userId}}">
+                                data-target="#editModal" addId="{{this._id}}">
                                 Edit
                             </button><button class="delete">Delete</button>
                         </td>
@@ -215,7 +215,6 @@
     $(document).ready(function () {
         $('.edit-address').click(function () {
             const addId = $(this).attr('addId')
-            const userId = $(this).attr('userId')
             axios.get(`/users/address/${addId}`).then(e => {
                 $('.form-horizontal').attr('action', `/users/address/${addId}`)
                 $('.address').attr('value', e.data.address[0].address)

@@ -1,46 +1,51 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Home</title>
+
+<head>
+	<title>AuraHome-Center</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	{{!-- <link rel="icon" href="/images/icons/logo-01.png"> --}}
 
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  
-<!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="/images/icons/favicon.png"/>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
+	<link rel="icon" type="image/png"  href="/images/icons/logo-03.png" />
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/vendor/bootstrap/css/bootstrap.min.css">
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/fonts/iconic/css/material-design-iconic-font.min.css">
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/fonts/linearicons-v1.0.0/icon-font.min.css">
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/vendor/animate/animate.css">
-<!--===============================================================================================-->	
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/vendor/css-hamburgers/hamburgers.min.css">
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/vendor/animsition/css/animsition.min.css">
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/vendor/select2/select2.min.css">
-<!--===============================================================================================-->	
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/vendor/daterangepicker/daterangepicker.css">
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/vendor/slick/slick.css">
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/vendor/MagnificPopup/magnific-popup.css">
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/vendor/perfect-scrollbar/perfect-scrollbar.css">
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
+
+	<link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
 	<link rel="stylesheet" type="text/css" href="/css/util.css">
 	<link rel="stylesheet" type="text/css" href="/css/main.css">
-		<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script src="/vendor/jquery/jquery-3.2.1.min.js"></script>
-  </head>
-  <body>
-    {{{body}}}
+</head>
+
+<body>
+	{{{body}}}
 	<!--===============================================================================================-->
 	<script src="/vendor/animsition/js/animsition.min.js"></script>
 	<!--===============================================================================================-->
@@ -88,6 +93,13 @@
 	<script>
 		$('.js-addwish-b2').on('click', function (e) {
 			e.preventDefault();
+			const prodId = $(this).attr('prodId')
+			axios.post(`/users/wishlist`, {
+				prodId
+			}).then(response =>
+				window.location.reload()
+			)
+
 		});
 
 		$('.js-addwish-b2').each(function () {
@@ -108,23 +120,46 @@
 
 				$(this).addClass('js-addedwish-detail');
 				$(this).off('click');
+
 			});
 		});
+		$('.delete').click(function () {
+			const prodId = $(this).attr('prodId')
+
+			axios.delete(`/users/wishlist/${prodId}`).then(response => {
+				swal(" deleted to cart !", "success");
+
+				window.location.reload()
+			})
+		})
+		$('.add').click(function () {
+			const prodId = $(this).attr('prodId')
+			axios.post(`/users/cart/`, { prodId, qty: 1 }).then(response => {
+				swal(" added to cart !", "success");
+
+				window.location.reload()
+			})
+		})
 
 		/*---------------------------------------------*/
 
-		$('.js-addcart-detail').each( async function () {
+		$('.js-addcart-detail').each(async function () {
 			var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
 			$(this).on('click', function () {
-				const prodId =$(this).attr('prodId')
-				const qty=$('.num-product').val()
-				axios.post(`/users/cart`,{
+				const prodId = $(this).attr('prodId')
+				let qty
+				if ($('.num-product').val() == 0) {
+					qty = 1
+				} else {
+					qty = $('.num-product').val()
+				}
+				axios.post(`/users/cart`, {
 					prodId,
 					qty
 
-				}).then(e=>{
-window.location.reload()
-				swal(nameProduct, "is added to cart !", "success");
+				}).then(e => {
+					window.location.reload()
+					swal(nameProduct, "is added to cart !", "success");
 				})
 			});
 		});
@@ -149,5 +184,6 @@ window.location.reload()
 	</script>
 	<!--===============================================================================================-->
 	<script src="/js/main.js"></script>
-  </body>
+</body>
+
 </html>

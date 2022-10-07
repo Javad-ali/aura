@@ -23,7 +23,41 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'hbs');
 // view engine setup
-app.engine('hbs', hbs.engine({ handlebars: allowInsecurePrototypeAccess(Handlebars) ,defaultLayout: 'layout',layoutsDir:__dirname+'/views/layout/', extname: 'hbs'}));
+app.engine('hbs', hbs.engine({ handlebars: allowInsecurePrototypeAccess(Handlebars) ,defaultLayout: 'layout',layoutsDir:__dirname+'/views/layout/', extname: 'hbs',helpers:{
+  formator:function (date){
+    date=String(date)
+    return date.slice(4,16)
+  
+  },
+  pending:function(status){
+    if(status== 'pending'){
+      return true
+    }else{
+      return false
+    }
+  },
+  shipped:function(status){
+    if(status== 'shipped'){
+      return true
+    }else{
+      return false
+    }
+  },
+  delivered:function(status){
+    if(status== 'delivered'){
+      return true
+    }else{
+      return false
+    }
+  },
+  cancelOd:function(status){
+    if(status== 'Cancelled'){
+      return true
+    }else{
+      return false
+    }
+  }
+}}));
 //app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', '.hbs');
 // app.engine('hbs',hbs.engine({extname:'hbs',defaultLayout:'layout',layoutsDir:__dirname+'/views/layout/',partialsDir:__dirname+'/views/partials/'}))

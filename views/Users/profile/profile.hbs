@@ -1,0 +1,145 @@
+<div class="main--content">
+    <section style="background-color: #fff;">
+        <div>
+            <div class="container py-5">
+
+
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card mb-4">
+                            <div class="card-body text-center">
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+                                    alt="avatar" class="rounded-circle img-fluid" style="width: 95px;">
+                                <h5 class="my-3">Hi {{user.name}}</h5>
+                                <p class="text-muted mb-1">{{user.email}}</p>
+                                <div class="d-flex justify-content-center mb-2">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Full Name</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                    <form action="/users/profile" method="post" >
+                                        <p class="text-muted mb-0">{{user.name}}</p>
+                                        <input type="text" style="display:none;" id="name" value="{{user.name}}" name="name">
+                                        <i class="ri-edit-line edit"></i>
+                                       <button type="submit"style="display: none;"><i class="fa-sharp fa-solid fa-check" ></i></button> 
+                                    </form>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Mobile</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                    <form action="/users/profile" method="post">
+                                        <p class="text-muted mb-0">{{user.phoneNumber}}</p>
+                                        <input type="text" style="display:none;" id="name" value="{{user.phoneNumber}}" name="phoneNumber" >
+                                        <i class="ri-edit-line edit"></i> 
+                                        <button type="submit"style="display:none ;"><i class="fa-sharp fa-solid fa-check" ></i></button>
+
+                                    </form>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Email</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                    <form action="/users/profile" method="post" >
+                                        <p class="text-muted mb-0">{{user.email}}</p>
+                                        <input type="text" style="display:none;" id="name" value="{{user.email}}" name="email">
+                                        <i class="ri-edit-line edit"></i>
+                                       <button type="submit" style="display:none ;"> <i class="fa-sharp fa-solid fa-check"></i></button>
+                                    </form>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Password</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p class="text-muted mb-0">************</p>
+                                        <i class="ri-edit-line  " data-toggle="modal"
+                                            data-target="#exampleModalCenter"></i>
+                                        <i class="fa-sharp fa-solid fa-check"></i>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+    </section>
+</div>
+
+<!-- PasswordModal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">change Password</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="textinput">Old Password</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="old_psd" placeholder="Old Password" id="old_psd">
+                    </div>
+                </div>
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="textinput">New Password</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="new-psd" placeholder="New Password" id="new-psd">
+                    </div>
+                </div>
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="textinput">Re Password</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="re-psd" placeholder="Re Password" </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success edit-psd">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('.edit').click(function () {
+                $(this).prev().toggle()
+                $(this).prev().prev().toggle()
+                $(this).next().toggle()
+
+
+            })
+            $('.edit-psd').click(function () {
+                const oldPassword = $('#old_psd').val()
+                const newPassword = $('#new-psd').val()
+                axios.post(`/users/changePassword`,
+                    { oldPassword, newPassword }).then(response => alert(response.data.message))
+            })
+        })
+
+    </script>

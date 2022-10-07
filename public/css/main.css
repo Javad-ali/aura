@@ -108,7 +108,19 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 @media (max-width: 1600px) {
   .container {max-width: 1200px;}
 }
-
+.empty{
+  height: 50vh;
+  width: 100%;
+}
+.empty-image{
+  height: 60%;
+  width: 100%;
+  background-image: url(https://codescandy.com/coach/rtl/assets/images/bag.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  object-fit: fill;
+}
 /*------------------------------------------------------------------
 [ Slick2 ]*/
 .slick-slide {outline: none !important;}
@@ -206,6 +218,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
   -o-transition: all 0.3s;
   -moz-transition: all 0.3s;
   transition: all 0.3s;
+  margin-bottom:40px ;
 }
 
 .header-v2 .container-menu-desktop {
@@ -1210,7 +1223,8 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 
 .item-slick1 {
   height: calc(100vh - 220px);
-  background-size: cover;
+  background-size: contain;
+  
   background-repeat: no-repeat;
   background-position: center center;
 }
@@ -1361,6 +1375,12 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 }
 
 @media (max-width: 575px) {
+  .item-slick1{
+    height: calc(100vh - 220px);
+    width: 100vw;
+    object-position: center;
+    object-fit: fill;
+  }
   .caption-dots-slick1 {
     font-size: 13px;
   }

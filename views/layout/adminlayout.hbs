@@ -11,15 +11,17 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="/vendor/jquery/jquery-3.2.1.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"crossorigin="anonymous"></script>
+    	<link rel="stylesheet" type="text/css" href="/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+    {{!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
 
     <script type="text/javascript" charset="utf8"
-        src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+        src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script> --}}
+	<link rel="icon" type="image/png"  href="/images/icons/logo-03.png" />
 
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <title>Dashboard</title>
+    <title>AuraHome-Center/admin</title>
 </head>
 
 <body>
@@ -38,19 +40,11 @@
         </div>
         <div class="search--notification--profile">
             <div class="search">
-                <input type="text" placeholder="Search Scdule..">
-                <button><i class="ri-search-2-line"></i></button>
+                <input type="text" placeholder="Hi Admin.." disabled>
+                {{!-- <button><i class="ri-search-2-line"></i></button> --}}
             </div>
             <div class="notification--profile">
-                <div class="picon lock">
-                    <i class="ri-lock-line"></i>
-                </div>
-                <div class="picon bell">
-                    <i class="ri-notification-2-line"></i>
-                </div>
-                <div class="picon chat">
-                    <i class="ri-wechat-2-line"></i>
-                </div>
+            
                 <div class="picon profile">
                     <img src="/images/profile.jpg" alt="">
                 </div>
@@ -85,7 +79,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/admin/orders">
                         <span class="icon icon-4"><i class="ri-user-line"></i></span>
                         <span class="sidebar--item">Orders</span>
                     </a>

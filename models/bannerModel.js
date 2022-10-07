@@ -3,7 +3,7 @@ const mongoose =require('mongoose')
     {
         name:String,
         heading:String,
-        image:Array
+        image:String,
         
     },{timestamps:true}
  )

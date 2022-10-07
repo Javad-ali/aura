@@ -9,7 +9,7 @@ const adminSchema=mongoose.Schema({
         unique:true
      },
      password:String, 
-});
+},{timestamps:true});
 adminSchema.pre('save',async function(next){
     try{
         const hash =await bcrypt.hash(this.password,10)

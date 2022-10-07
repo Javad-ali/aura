@@ -1,104 +1,249 @@
-
-        <div class="main--content">
-            <div class="overview">
-                <div class="title">
-                    <h2 class="section--title">Overview</h2>
-                    <select name="date" id="date" class="dropdown">
-                        <option value="today">Today</option>
-                        <option value="lastweek">Last Week</option>
-                        <option value="lastmonth">Last Month</option>
-                        <option value="lastyear">Last Year</option>
-                        <option value="alltime">All Time</option>
-                    </select>
-                </div>
-                <div class="cards">
-                    <div class="card card-1">
-                        <div class="card--data">
-                            <div class="card--content">
-                                <h5 class="card--title">Total Products</h5>
-                                <h1>152</h1>
-                            </div>
-                            <i class="ri-user-2-line card--icon--lg"></i>
-                        </div>
-                        <div class="card--stats">
-                            <span><i class="ri-bar-chart-fill card--icon stat--icon"></i>65%</span>
-                            <span><i class="ri-arrow-up-s-fill card--icon up--arrow"></i>10</span>
-                            <span><i class="ri-arrow-down-s-fill card--icon down--arrow"></i>2</span>
-                        </div>
-                    </div>
-                    <div class="card card-2">
-                        <div class="card--data">
-                            <div class="card--content">
-                                <h5 class="card--title">Total Users</h5>
-                                <h1>1145</h1>
-                            </div>
-                            <i class="ri-user-line card--icon--lg"></i>
-                        </div>
-                        <div class="card--stats">
-                            <span><i class="ri-bar-chart-fill card--icon stat--icon"></i>82%</span>
-                            <span><i class="ri-arrow-up-s-fill card--icon up--arrow"></i>230</span>
-                            <span><i class="ri-arrow-down-s-fill card--icon down--arrow"></i>45</span>
-                        </div>
-                    </div>
-                    <div class="card card-3">
-                        <div class="card--data">
-                            <div class="card--content">
-                                <h5 class="card--title">Orders</h5>
-                                <h1>102</h1>
-                            </div>
-                            <i class="ri-calendar-2-line card--icon--lg"></i>
-                        </div>
-                        <div class="card--stats">
-                            <span><i class="ri-bar-chart-fill card--icon stat--icon"></i>27%</span>
-                            <span><i class="ri-arrow-up-s-fill card--icon up--arrow"></i>31</span>
-                            <span><i class="ri-arrow-down-s-fill card--icon down--arrow"></i>23</span>
-                        </div>
-                    </div>
-                    {{!-- <div class="card card-4">
-                        <div class="card--data">
-                            <div class="card--content">
-                                <h5 class="card--title">Beds Available</h5>
-                                <h1>15</h1>
-                            </div>
-                            <i class="ri-hotel-bed-line card--icon--lg"></i>
-                        </div>
-                        <div class="card--stats">
-                            <span><i class="ri-bar-chart-fill card--icon stat--icon"></i>8%</span>
-                            <span><i class="ri-arrow-up-s-fill card--icon up--arrow"></i>11</span>
-                            <span><i class="ri-arrow-down-s-fill card--icon down--arrow"></i>2</span>
-                        </div>
-                    </div> --}}
-                </div>
-            </div>
-            <div class="recent--patients table-content">
-                <div class="title">
-                    <h2 class="section--title">Recent Users</h2>
-                    <button class="add"><i class="ri-add-line"></i>Add Products</button>
-                </div>
-                <div class="table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Date in</th>
-                                <th>Gender</th>
-                                <th>Age</th>
-                                <th>Status</th>
-                                <th>Settings</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Cameron Williamson</td>
-                                <td>30/07/2022</td>
-                                <td>Male</td>
-                                <td>61kg</td>
-                                <td class="pending">pending</td>
-                                <td><span><i class="ri-edit-line edit"></i><i class="ri-delete-bin-line delete"></i></span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
+<div class="main--content">
+    <div class="overview">
+        <div class="title">
+            <h2 class="section--title">Overview</h2>
+            <select name="date" id="date" class="dropdown">
+                <option value="today">Today</option>
+                <option value="lastweek">Last Week</option>
+                <option value="lastmonth">Last Month</option>
+                <option value="lastyear">Last Year</option>
+                <option value="alltime">All Time</option>
+            </select>
         </div>
-   
+
+        <div class="cards">
+            <div class="card card-1">
+                <div class="card--data">
+                    <div class="card--content">
+                        <h5 class="card--title">Total Products</h5>
+                        <h1>{{product.length}}</h1>
+                    </div>
+                    <i class="ri-user-2-line card--icon--lg"></i>
+                </div>
+                {{!-- <div class="card--stats">
+                    <span><i class="ri-bar-chart-fill card--icon stat--icon"></i>65%</span>
+                    <span><i class="ri-arrow-up-s-fill card--icon up--arrow"></i>10</span>
+                    <span><i class="ri-arrow-down-s-fill card--icon down--arrow"></i>2</span>
+                </div> --}}
+            </div>
+            <div class="card card-2">
+                <div class="card--data">
+                    <div class="card--content">
+                        <h5 class="card--title">Total Users</h5>
+                        <h1>{{user.length}}</h1>
+                    </div>
+                    <i class="ri-user-line card--icon--lg"></i>
+                </div>
+                {{!-- <div class="card--stats">
+                    <span><i class="ri-bar-chart-fill card--icon stat--icon"></i>82%</span>
+                    <span><i class="ri-arrow-up-s-fill card--icon up--arrow"></i>230</span>
+                    <span><i class="ri-arrow-down-s-fill card--icon down--arrow"></i>45</span>
+                </div> --}}
+            </div>
+            <div class="card card-3">
+                <div class="card--data">
+                    <div class="card--content">
+                        <h5 class="card--title"> Total Orders</h5>
+                        <h1>{{order.length}}</h1>
+                    </div>
+                    <i class="ri-calendar-2-line card--icon--lg"></i>
+                </div>
+
+            </div>
+            <div class="card card-4">
+                <div class="card--data">
+                    <div class="card--content">
+                        <h5 class="card--title">Total Sales</h5>
+                        <h1>{{totalsales}}</h1>
+                    </div>
+                    <i class="ri-hotel-sale-line card--icon--lg"></i>
+                </div>
+
+            </div>
+            <div class="card card-3">
+                <div class="card--data">
+                    <div class="card--content">
+                        <h5 class="card--title">Total COD's</h5>
+                        <h1>{{cod}}</h1>
+                    </div>
+                    <i class="ri-calendar-2-line card--icon--lg"></i>
+                </div>
+
+            </div>
+            <div class="card card-3">
+                <div class="card--data">
+                    <div class="card--content">
+                        <h5 class="card--title" style="color:red ;">Cancelled Orders</h5>
+                        <h1>{{cancelOdr}}</h1>
+                    </div>
+                    <i class="ri-calendar-2-line card--icon--lg"></i>
+                </div>
+            </div>
+            <div class="card card-3">
+                <div class="card--data">
+                    <div class="card--content">
+                        <h5 class="card--title">Total Revenue</h5>
+                        <h1>₹ {{TotalRevenue}}</h1>
+                    </div>
+                    <i class="ri-calendar-2-line card--icon--lg"></i>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="charts mt-5">
+        <div class="chart1 pt-4 pb-4 d-flex flex-column">
+
+            <canvas id="myChart-1" width="40"></canvas>
+            <canvas id="myChart" width="40"></canvas>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+
+            <script>
+                var xValues = ["Cancelled", "Shipped", "Pending", "Delivered"];
+                var yValues = [{{ cancelOdr }}, {{ shipped.length }}, {{ pending.length }}, {{ deliveredOd.length }}];
+                var barColors = [
+                    "#b91d47",
+                    "#00aba9",
+                    "#2b5797",
+                    "#1e7145"
+                ];
+
+                new Chart("myChart", {
+                    type: "doughnut",
+                    data: {
+                        labels: xValues,
+                        datasets: [{
+                            backgroundColor: barColors,
+                            data: yValues
+                        }]
+                    },
+                    options: {
+                        title: {
+                            display: true,
+                            text: "Order Status"
+                        }
+                    }
+                });
+
+            </script>
+
+            <script>
+                $(document).ready(() => {
+
+                    const ctx = document.getElementById('myChart-1').getContext('2d');
+                    const data = {
+                        labels: [
+                            '{{eachDaySale.[0]._id.day}}/{{eachDaySale.[0]._id.month}}/{{eachDaySale.[0]._id.year}}',
+                            '{{eachDaySale.[1]._id.day}}/{{eachDaySale.[1]._id.month}}/{{eachDaySale.[1]._id.year}}',
+                            '{{eachDaySale.[2]._id.day}}/{{eachDaySale.[2]._id.month}}/{{eachDaySale.[2]._id.year}}',
+                            '{{eachDaySale.[3]._id.day}}/{{eachDaySale.[3]._id.month}}/{{eachDaySale.[3]._id.year}}',
+                            '{{eachDaySale.[4]._id.day}}/{{eachDaySale.[4]._id.month}}/{{eachDaySale.[4]._id.year}}',
+                            '{{eachDaySale.[5]._id.day}}/{{eachDaySale.[5]._id.month}}/{{eachDaySale.[5]._id.year}}',
+                            '{{eachDaySale.[6]._id.day}}/{{eachDaySale.[6]._id.month}}/{{eachDaySale.[6]._id.year}}'
+                        ],
+                        datasets: [
+                            {
+                                label: 'Dataset',
+                                data:
+                                    [
+                                        '{{eachDaySale.[0].total}}',
+                                        '{{eachDaySale.[1].total}}',
+                                        '{{eachDaySale.[2].total}}',
+                                        '{{eachDaySale.[3].total}}',
+                                        '{{eachDaySale.[4].total}}',
+                                        '{{eachDaySale.[5].total}}',
+                                        '{{eachDaySale.[6].total}}',                                       
+                                    ],
+                                borderColor: ['red', 'green'],
+                                backgroundColor: ['green', 'blue', 'red'],
+                                pointStyle: 'circle',
+                                pointRadius: 10,
+                                pointHoverRadius: 15
+                            }
+                        ]
+                    };
+                    const myChart = new Chart(ctx, {
+                        type: 'line',
+                        data: data,
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: (ctx) => 'Point Style: ' + ctx.chart.data.datasets[0].pointStyle,
+                                }
+                            }
+                        }
+                    });
+
+                })
+            </script>
+
+        </div>
+    </div>
+
+    <div class="sales-Report">
+
+        <div class="title">
+            <h2 class="section--title">Orders</h2>
+
+        </div>
+        <div class="table">
+            <table id="salesReport-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>User</th>
+                        <th>Products</th>
+                        <th>Qty</th>
+                        <th>Payment method</th>
+                        <th>TotalPrice</th>
+                        {{!-- <th> Total revenue</th> --}}
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each order}}
+                    <tr>
+                        <td>{{formator this.createdAt}}</td>
+                        <td>{{this.userid.name}}</td>
+                        <td>{{#each this.products}}{{this.product.product.brandName}} {{this.product.product.itemName}}
+                            {{/each}}</td>
+                        <td>{{#each this.products}}{{this.qty}}{{/each}}</td>
+                        <td>{{this.grandTotal}}</td>
+                        <td>{{this.paymentType}}</td>
+
+
+                    </tr>
+                    {{/each}}
+
+                </tbody>
+                <th>Total revenue:=</th>
+                <td style="color:darkred ;">₹ {{TotalRevenue}}</td>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $('#salesReport-table').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+            });
+        });
+    </script>

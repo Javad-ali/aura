@@ -19,7 +19,7 @@ const userSchema=mongoose.Schema({
     }],
 
 
-});
+},{timestamps:true});
 userSchema.pre('save',async function(next){
     try{
         const hash =await bcrypt.hash(this.password,10)

@@ -144,7 +144,7 @@ img {
     top: 0;
     left: 0;
     height: 100%;
-    width: 300px;
+    width: 226px;
     background-color: #fff;
     padding: 30px;
     display: flex;
@@ -251,7 +251,7 @@ a {
     right: 0;
     height: 100%;
     width: calc(100% - 300px);
-    padding: 0 40px;
+    padding: 0 0px;
     overflow-y: scroll;
     transition: .3s;
 }
@@ -280,10 +280,23 @@ a {
     width: 150px;
     padding: 5px;
 }
-
+.Cancelled{
+    color: red;
+}
+.shipped{
+    color: rgb(17, 139, 187);
+}
+.delivered{
+    color: green;
+}
+.charts{
+    height: auto;
+    width: 90%;
+}
 .cards {
     display: flex;
     gap: 20px;
+    flex-wrap: wrap;
 }
 
 .card {
@@ -342,8 +355,7 @@ a {
 }
 
 .card-1 {
-    background-color: rgba(80, 115, 251, .1);
-}
+    background-color: rgba(112, 215, 165, .1);}
 
 .card-1 .card--title {
     color: rgba(80, 115, 251, 1);
@@ -354,8 +366,7 @@ a {
 }
 
 .card-2 {
-    background-color: rgba(241, 210, 67, .1);
-}
+    background-color: rgba(112, 215, 165, .1);}
 
 .card-2 .card--title {
     color: rgba(241, 210, 67, 1);

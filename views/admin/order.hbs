@@ -1,32 +1,73 @@
+<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
 <div class="main--content">
     <div class="recent--patients table-content">
         <div class="title">
             <h2 class="section--title">Orders</h2>
-            
+
         </div>
         <div class="table">
-            <table id="user-table" >
+            <table id="order-table">
                 <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>Total Bill</th>
-                        <th>Paid</th>
-                        <th>Status</th>
-                        <th>Settings</th>
+                        {{!-- <th>Order Id</th> --}}
+                        <th>User</th>
+                        <th>Email</th>
+                        {{!-- <th>Address</th> --}}
+                        <th>Products</th>
+                        <th>Qty</th>
+                        <th>TotalPrice</th>
+                        <th>Order Date</th>
+                        <th>Payment</th>
+                        <th> DL-Status</th>
+                        <th>Action</th>
+                        <th>Cancel Order</th>
+
+
+
+
+
+
+
+
                     </tr>
                 </thead>
                 <tbody>
-                    {{#each users}}
+                    {{#each orders}}
                     <tr>
-                        <td>{{this.name}}</td>
-                        <td>{{this.email}}</td>
-                        <td>{{this.contactNo}}</td>
-                        {{#if this.status}}
-                        <td class="confirmed">Active</td>
-                        {{else}}
-                        <td class="rejected">Blocked</td>
-                        {{/if}}
-                        <td> {{#if this.status}}<button class="btn btn-danger block" user-id="{{this._id}}">Block</button>{{else}}<button class="btn btn-success unblock" user-id="{{this._id}}">UnBlock</button>{{/if}}</td>
+                        {{!-- <td>{{this.id}}</td> --}}
+                        <td>{{this.userid.name}}</td>
+                        <td>{{this.userid.email}}</td>
+
+                        {{!-- <td>
+                            {{this.shipping.address}}<br>{{this.shipping.state}}<br>{{this.shipping.city}}<br>{{this.shipping.pin}}<br>{{this.shipping.contact}}
+                        </td> --}}
+                        <td>{{#each this.products}}{{this.product.product.brandName}} {{this.product.product.itemName}}
+                            {{/each}}</td>
+                            <td>{{#each this.products}}{{this.qty}}{{/each}}</td>
+                        <td>{{this.grandTotal}}</td>
+                        <td>{{formator this.createdAt}}</td>
+                        <td>{{this.paymentType}}</td>
+                        <td> <span class="{{this.status}}"> {{this.status}}</span></td>
+                        <td>{{#if (pending this.status)}} <i class="fa fa-truck shipped" orders="{{this._id}}"
+                                aria-hidden="true"></i>{{else}}{{#if (shipped this.status)}}
+                            <i class="fa fa-shopping-bag delivered" orders="{{this._id}}" aria-hidden="true"></i>
+                            {{/if}} {{/if}}
+                            {{#if (delivered this.status)}} <i class='fa fa-close' style='color: red'></i>{{/if}}
+                            {{#if (cancelOd this.status)}} <i class='fa fa-close' style='color: red'></i>{{/if}}
+                        </td>
+
+                        <td>{{#if (delivered this.status)}}<i class='fa fa-close' style='color: red'></i>{{else}} {{#if (cancelOd this.status)}}<i class='fa fa-close' style='color: red'></i> {{else}}<button class="Cancel btn btn-danger " style="font-size:11px ;" orders="{{this._id}}">Cancel
+                                Order</button>{{/if}}{{/if}}
+                                </td>
+
+                        {{!-- onclick="cancelbtn('{{this._id}}')" --}}
+
+
+
+
+                        {{!-- <td class="confirmed">Active</td>
+                        <td class="rejected">Blocked</td> --}}
                     </tr>
                     {{/each}}
                 </tbody>
@@ -36,28 +77,65 @@
 </div>
 
 
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
 <script>
-    $('.block').click(function(){
-        const userid=$(this).attr('user-id')
-        confirm('Do you want to Block this user')
-        axios.patch('',{
-            userid
-        }).then(e=>{
-            window.location.reload()
+      $(document).ready(function() {
+    $('#order-table').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+
+
+        $('.shipped').click(function () {
+            const status = 'shipped'
+            const orderid = $(this).attr('orders')
+
+            axios.post('/admin/status', { status, orderid }).then(response => {
+                window.location.reload()
+            })
         })
-    })
-     $('.unblock').click(function(){
-        const userid=$(this).attr('user-id')
-        confirm('Do you want to Unblock this user')
-        axios.post('',{
-            userid
-        }).then(e=>{
-            window.location.reload()
+
+        $('.delivered').click(function () {
+            const status = 'delivered'
+            const orderid = $(this).attr('orders')
+
+            axios.post('/admin/status', { status, orderid }).then(response => {
+                window.location.reload()
+            })
         })
-    })
-</script>
-<script>
-    $(document).ready( function () {
-    $('#user-table').DataTable();
-} );
+
+        $('.Cancel').click(function () {
+            alert("order cancelled")
+            const cancelOd = 'Cancelled'
+            const orderid = $(this).attr('orders')
+
+            axios.post('/admin/cancelOrder', { cancelOd, orderid }).then(Response => {
+
+                window.location.reload()
+            })
+
+        })
+
+    });
+
+    /*function cancelbtn(id){
+
+              const data ={
+                cancelOd : 'Order Canceled',
+                orderid : id
+            }
+            axios.post('/admin/cancelOrder', data).then(res => {
+            })
+   } */
+
+
 </script>

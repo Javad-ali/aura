@@ -1,23 +1,29 @@
-const twilio = require('twilio')
 const dotenv = require('dotenv')
-dotenv.config({path:'./.env'})
+dotenv.config()
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const ServiceSID = process.env.TWILIO_ServiceSID;
+const client = require('twilio')(accountSid, authToken, ServiceSID);
 
-const config =process.env.config
-
-const ServiceSID = process.env.ServiceSID
-const accountSid = process.env.AccountSID;
-const authToken = process.env.AuthToken;
-const client = require('twilio')(accountSid, authToken,ServiceSID);
-
-module.exports ={
-    signupotp:(number)=>{
-        return new Promise((resolve,reject)=>{
-            client.verify.v2.services(ServiceSID).verifications.create({
-                to:'+91' +number,
-                channel:'sms'
-            }).then(data=>{
-                resolve(data)
-            })
+exports.sendOtp = async (phone) => {
+    try {
+        const data = await client.verify.v2.services(ServiceSID).verifications.create({
+            to: `+91${phone}`,
+            channel: 'sms'
         })
-    },
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+exports.verifyOtp = async (phone, otp) => {
+    try {
+        const data = await client.verify.v2.services(ServiceSID).verificationChecks.create({
+            to: `+91${phone}`,
+            code: otp
+        })
+        return data
+    } catch (error) {
+        console.log(error)
+    }
 }
